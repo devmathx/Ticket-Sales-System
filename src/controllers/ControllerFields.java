@@ -8,7 +8,5 @@ public class ControllerFields {
     protected FileTXT flightFile;
     protected FileTXT salesFile;
 
-    public ControllerFields(){
-        
-    }
+    public ControllerFields(){}
 }

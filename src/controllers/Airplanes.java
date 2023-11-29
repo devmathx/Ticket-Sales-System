@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import interfaces.Controller;
 import models.Airplane;
-import models.Client;
 import services.FileTXT;
 
+/**
+ * Controle de aeronaves
+ */
 public class Airplanes extends ControllerFields implements Controller<Airplane> {
 
   private Map<String, Airplane> airplanes = new HashMap<>();
@@ -19,7 +21,7 @@ public class Airplanes extends ControllerFields implements Controller<Airplane> 
   }
 
   public boolean create(String name, int seatsQuantity) {
-    final String code = "A" + (this.airplanes.size() + 1); // Gerar código aleatório
+    final String code = "A" + (this.airplanes.size() + 1);
     Airplane airplane = new Airplane(code, name, seatsQuantity);
     
     this.airplanes.put(code, airplane);
@@ -51,10 +53,10 @@ public class Airplanes extends ControllerFields implements Controller<Airplane> 
     ArrayList<String> rows = super.airplaneFile.read();
 
     for (String clientString : rows) {
-        Airplane airplane = Airplane.fromString(clientString);
-        if (airplane != null) {
-            this.airplanes.put(airplane.getCode(), airplane);
-        }
+      Airplane airplane = Airplane.fromString(clientString);
+      if (airplane != null) {
+        this.airplanes.put(airplane.getCode(), airplane);
+      }
     }
   }
 }

@@ -36,11 +36,11 @@ public class ListSales extends JFrame {
   private String buildComponent(Sale sale) {
     String text = "";
     text += "Codigo: " + sale.getCode();
-    text += " | Comprador: " + sale.getBuyer().getName();
-    text += "| Código de Voô: " + sale.getFlight().getCode();
-    text += "| Origem: " + sale.getFlight().getOrigin();
-    text += "| Destino: " + sale.getFlight().getDestiny();
-    text += "| Horário: " + sale.getHour();
+    text += " -- Comprador: " + sale.getBuyer().getName();
+    text += " -- Código de Voô: " + sale.getFlight().getCode();
+    text += " -- Origem: " + sale.getFlight().getOrigin();
+    text += " -- Destino: " + sale.getFlight().getDestiny();
+    text += " -- Data: " + sale.getHour();
     
     return text;
   }

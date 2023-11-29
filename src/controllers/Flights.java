@@ -7,7 +7,6 @@ import java.util.Map;
 import enums.SeatClassEnum;
 import interfaces.Controller;
 import models.Airplane;
-import models.Client;
 import models.Flight;
 import services.FileTXT;
 
@@ -68,15 +67,14 @@ public class Flights extends ControllerFields implements Controller<Flight> {
     ArrayList<String> rows = super.flightFile.read();
 
     for (String flightString : rows) {
-        Flight flight = Flight.fromString(flightString);
-        if (flight != null) {
-            this.flights.put(flight.getCode(), flight);
-        }
+      Flight flight = Flight.fromString(flightString);
+      if (flight != null) {
+          this.flights.put(flight.getCode(), flight);
+      }
     }
-}
+  }
 
-
-  public boolean newStatus(String code){
+  public boolean newStatus(String code) {
     Flight flight = this.flights.get(code);
 
     if(flight == null){

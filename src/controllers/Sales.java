@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import interfaces.Controller;
-import models.Airplane;
 import models.Client;
 import models.Flight;
 import models.Sale;
@@ -89,10 +88,10 @@ public class Sales extends ControllerFields implements Controller<Sale> {
     ArrayList<String> rows = super.salesFile.read();
 
     for (String saleString : rows) {
-        Sale sale = Sale.fromString(saleString);
-        if (sale != null) {
-            this.sales.put(sale.getCode(), sale);
-        }
+      Sale sale = Sale.fromString(saleString);
+      if (sale != null) {
+          this.sales.put(sale.getCode(), sale);
+      }
     }
   }
 }

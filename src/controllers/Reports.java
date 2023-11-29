@@ -8,7 +8,6 @@ import models.Client;
 import models.Report;
 import models.Sale;
 import services.FileCSV;
-import services.FileTXT;
 
 public class Reports extends ControllerFields implements Controller<Report> {
 
@@ -19,10 +18,9 @@ public class Reports extends ControllerFields implements Controller<Report> {
 
   public Reports() {
     fullSales = sales.getList();
-    // this.CSV = new FileCSV("flights");
   }
 
-  public boolean createReportClient(String RG){
+  public boolean createReportClient(String RG) {
     Clients clients  = new Clients();
     Client client = clients.find(RG);
 
@@ -31,7 +29,6 @@ public class Reports extends ControllerFields implements Controller<Report> {
     }
 
     ArrayList<Sale> salesClient = new ArrayList<>();
-
 
     for(Sale s : fullSales){
       if(s.getBuyer().getRg().equals(client.getRg())){
@@ -54,8 +51,6 @@ public class Reports extends ControllerFields implements Controller<Report> {
     this.CSV.write(csvString, false);
 
     return true;
-
-    
   }
     
 
@@ -156,5 +151,4 @@ public class Reports extends ControllerFields implements Controller<Report> {
   public ArrayList<Report> getList() {
     return this.reports;
   }
-  
 }

@@ -11,14 +11,14 @@ import utils.Keyboard;
 public class SaleView extends View {
     private ListSales screen;
 
-    public SaleView(){
+    public SaleView() {
         this.screen = new ListSales(super.sales.getList());
         this.viewScreen();
     }
 
-    public boolean menu(){
+    public boolean menu() {
         String option;
-        
+
         System.out.println("\n\n===== AREA VENDA DE PASSAGEM =====\n");
         System.out.println("(1) - Realizar Venda");
         System.out.println("(2) - Visualizar Vendas");
@@ -28,7 +28,9 @@ public class SaleView extends View {
 
         switch (option) {
             case "1":
-                if(!this.create()) System.out.println("\t>> Erro ao cadastrar! <<\n");;
+                if (!this.create())
+                    System.out.println("\t>> Erro ao cadastrar! <<\n");
+                ;
                 break;
             case "2":
                 this.getFromView();
@@ -42,41 +44,38 @@ public class SaleView extends View {
         return true;
     }
 
-
-    public boolean create(){
+    public boolean create() {
         System.out.println("\n\n== REALIZAR VENDA ==\n");
         String rg = Keyboard.inputString(">> RG do cliente: ");
         String code = Keyboard.inputString(">> Código do voo: ");
-      
-    
-        if(super.sales.create(rg, code)){
+
+        if (super.sales.create(rg, code)) {
             System.out.println("\n\t>> Venda Realizada com Sucesso! <<\n");
             this.AttScreen();
             return true;
         }
-    
+
         return false;
     }
 
-    public boolean remove(){
+    public boolean remove() {
         return false;
     }
 
-    public void get(){
+    public void get() {
         ArrayList<Sale> sales = super.sales.getList();
 
-        for(Sale s : sales){
-            System.out.println("(" + s.getCode() + ")"+ " ->\t" + s);
+        for (Sale s : sales) {
+            System.out.println("(" + s.getCode() + ")" + " ->\t" + s);
         }
     }
 
-
-    public void getFromView(){
+    public void getFromView() {
         System.out.println("\n\n== LISTA DE VENDAS ==\n");
 
         ArrayList<Sale> sales = super.sales.getList();
-        
-        for(Sale sale :  sales){
+
+        for (Sale sale : sales) {
             System.out.println("(" + sale.getCode() + ") ->\t" + sale);
         }
     }
@@ -88,7 +87,7 @@ public class SaleView extends View {
         });
     }
 
-    public void viewScreen(){
+    public void viewScreen() {
         SwingUtilities.invokeLater(() -> {
             this.screen = new ListSales(super.sales.getList());
             this.screen.setVisible(true);

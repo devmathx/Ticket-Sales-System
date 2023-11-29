@@ -56,10 +56,10 @@ public class Clients extends ControllerFields implements Controller<Client> {
     ArrayList<String> rows = super.clientFile.read();
 
     for (String clientString : rows) {
-        Client client = Client.fromString(clientString);
-        if (client != null) {
-            this.clients.put(client.getRg(), client);
-        }
+      Client client = Client.fromString(clientString);
+      if (client != null) {
+        this.clients.put(client.getRg(), client);
+      }
     }
   }
 }
