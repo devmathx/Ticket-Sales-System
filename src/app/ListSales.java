@@ -13,7 +13,7 @@ public class ListSales extends JFrame {
   public ListSales(ArrayList<Sale> sales) {
     // Configurações da tela
     setTitle("Listagem de Vendas");
-    setSize(400, 300);
+    setSize(700, 300);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // Listagem
@@ -35,11 +35,21 @@ public class ListSales extends JFrame {
 
   private String buildComponent(Sale sale) {
     String text = "";
-    text += "Comprador: " + sale.getBuyer().getName();
-    text += "\nVoô: " + sale.getFlight().toString();
-    text += "\nHorário: " + sale.getHour();
+    text += "Codigo: " + sale.getCode();
+    text += " | Comprador: " + sale.getBuyer().getName();
+    text += "| Código de Voô: " + sale.getFlight().getCode();
+    text += "| Origem: " + sale.getFlight().getOrigin();
+    text += "| Destino: " + sale.getFlight().getDestiny();
+    text += "| Horário: " + sale.getHour();
     
     return text;
+  }
+
+  public void updateSalesList(ArrayList<Sale> sales) {
+    listModel.clear();
+    for (Sale sale : sales) {
+      listModel.addElement(buildComponent(sale));
+    }
   }
 }
 

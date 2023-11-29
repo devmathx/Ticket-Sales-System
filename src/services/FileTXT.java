@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import models.Client;
+
 public class FileTXT {
     /**
      * Diretório do arquivo
@@ -28,9 +30,14 @@ public class FileTXT {
      * @return Caminho relativo ao arquivo
      */
     private String newFile(String filename) {
+        if(filename == null)
+        {
+            return null;
+        }
+
         File root = new File(System.getProperty("user.dir"));
         File path = new File(root, "database");
-
+       
         if (!path.exists()) {
             path.mkdir();
         }
@@ -84,7 +91,7 @@ public class FileTXT {
      */
     public ArrayList<String> read() {
         ArrayList<String> rows = new ArrayList<>();
-
+       
         try {
             FileReader reader = new FileReader(this.TXT_PATH);
             BufferedReader bufferReader = new BufferedReader(reader);
@@ -109,6 +116,7 @@ public class FileTXT {
      */
     public void remove(String rowToRemove) {
         ArrayList<String> data = read();
+        System.out.println(rowToRemove);
             
         StringBuilder content = new StringBuilder();
 
@@ -116,7 +124,9 @@ public class FileTXT {
             if (row != null) {
                 if (!row.equals(rowToRemove)) {
                     content.append(row).append("\n");
-                } 
+                }else{
+                    System.out.println("igual");
+                }
             }   
         }
 
@@ -152,18 +162,46 @@ public class FileTXT {
         return null;
     }
 
-    /**
-     * Remove as linhas vazias do arquivo
-     */
+    public void rewrite(String oldRow, String newRow) {
+        ArrayList<String> data = read();
+        
+        StringBuilder content = new StringBuilder();
+    
+        for (String row : data) {
+            if (row != null) {
+                if (row.equals(oldRow)) {
+                    content.append(newRow).append("\n");
+                } else {
+                    content.append(row).append("\n");
+                }
+            }   
+        }
+    
+        this.write(content.toString(), true);
+    }
+
     public void removeEmptyLines() {
         ArrayList<String> lines = new ArrayList<>();
-
+    
         lines = this.read();
-
+    
+        // Filtra as linhas removendo as linhas em branco
         lines.removeIf(String::isEmpty);
-        
-        for (String line : lines) {
-            this.write(line + System.lineSeparator());
+    
+        // Reescreve o arquivo apenas com as linhas não vazias
+        try {
+            FileWriter writer = new FileWriter(this.TXT_PATH, false); // Sobrescreve o arquivo
+            BufferedWriter bufferWriter = new BufferedWriter(writer);
+    
+            for (String line : lines) {
+                bufferWriter.write(line);
+                bufferWriter.newLine();
+            }
+    
+            bufferWriter.close();
+            writer.close();
+        } catch (IOException error) {
+            error.printStackTrace();
         }
     }
 }

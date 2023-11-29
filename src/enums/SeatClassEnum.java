@@ -1,19 +1,18 @@
 package enums;
 
-public class SeatClassEnum {
-  
-  public static final SeatClassEnum ECONOMIC = new SeatClassEnum("Econômica");
-  public static final SeatClassEnum FIRST_CLASS = new SeatClassEnum("Primeira classe");
-  public static final SeatClassEnum EXECUTIVE = new SeatClassEnum("Executiva");
+public enum SeatClassEnum {
+    ECONOMIC("Econômica"),
+    FIRST_CLASS("Primeira classe"),
+    EXECUTIVE("Executiva");
 
-  private String extenso;
+    private final String extenso;
 
-  private SeatClassEnum(String s) {
-    this.extenso = s;
-  }
+    private SeatClassEnum(String extenso) {
+        this.extenso = extenso;
+    }
 
-  public String getExtenso() {
-    return extenso;
-  }
+    public String getExtenso() {
+        return extenso;
+    }
 }
 

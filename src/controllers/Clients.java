@@ -1,56 +1,65 @@
 package controllers;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 import interfaces.Controller;
 import models.Client;
 import services.FileTXT;
 
-public class Clients implements Controller<Client> {
-
-  private ArrayList<Client> clients = new ArrayList<>();
-  private final FileTXT TXT;
+public class Clients extends ControllerFields implements Controller<Client> {
+  private Map<String, Client> clients = new HashMap<>();
 
   public Clients() {
-    this.TXT = new FileTXT("clients");
-    this.TXT.removeEmptyLines();
+    super.clientFile = new FileTXT("clients");
+    super.clientFile.removeEmptyLines();
+    this.loadClients();
   }
 
   public boolean create(String name, String phone, String rg) {
-    Client client = new Client(rg, name, phone);
-
-    final boolean contain = this.clients.contains(client);
-    if (contain) return false;
-
-    this.clients.add(client);
+    if(this.clients.containsKey(rg)){
+      return false;
+    }
     
-    this.TXT.write(client.toString());
+    Client client = new Client(rg, name, phone);
+    this.clients.put(rg, client);
+
+    super.clientFile.write(client.toString());
 
     return true;
   }
 
   public Client find(String rg) {
-    for (Client c : this.clients) {
-      if (c.getRg() == rg) {
-        return c;
-      }
-    }
-
-    return null;
+    return this.clients.get(rg);
   }
 
   public boolean remove(String rg) {
-    Client aux = this.find(rg);
+    Client aux = this.clients.remove(rg);
 
     if (aux == null) return false;
 
-    this.clients.remove(aux);
-    this.TXT.remove(aux.toString());
+    this.clients.remove(rg);
+    super.clientFile.remove(aux.toString());
 
     return true;
   }
 
   public ArrayList<Client> getList() {
-    return this.clients;
+    return new ArrayList<>(this.clients.values());
+  }
+
+  public void addClient(Client client){
+    clients.put(client.getRg(), client);
+  }
+
+ private void loadClients() {
+    ArrayList<String> rows = super.clientFile.read();
+
+    for (String clientString : rows) {
+        Client client = Client.fromString(clientString);
+        if (client != null) {
+            this.clients.put(client.getRg(), client);
+        }
+    }
   }
 }

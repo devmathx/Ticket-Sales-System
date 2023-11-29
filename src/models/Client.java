@@ -23,6 +23,10 @@ public class Client {
     return rg;
   }
 
+  public String getName() {
+      return name;
+  }
+
   public String toString() {
     String text = "";
     text += "RG: " + this.rg + " | ";
@@ -31,7 +35,22 @@ public class Client {
     return text;
   }
 
-  public String getName() {
-    return name;
+  public static Client fromString(String input) {
+    String[] parts = input.split("\\|");
+
+    if (parts.length >= 3) { // Verifica se há pelo menos 3 partes
+        String rg = parts[0].trim().replace("RG: ", "");
+        String nome = parts[1].trim().replace("Nome: ", "");
+        String telefone = parts[2].trim().replace("Telefone: ", "");
+
+        return new Client(rg, nome, telefone);
+    } else {
+        // Se não houver informações suficientes, você pode lançar uma exceção ou lidar de outra forma
+        throw new IllegalArgumentException("Formato de entrada inválido: " + input);
+    }
+  }
+
+  public Client find(String rgBuyer) {
+    return null;
   }
 }

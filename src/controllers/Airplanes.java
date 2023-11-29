@@ -1,56 +1,60 @@
 package controllers;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 import interfaces.Controller;
 import models.Airplane;
+import models.Client;
 import services.FileTXT;
 
-public class Airplanes implements Controller<Airplane> {
+public class Airplanes extends ControllerFields implements Controller<Airplane> {
 
-  private ArrayList<Airplane> airplanes = new ArrayList<>();
-  private final FileTXT TXT;
+  private Map<String, Airplane> airplanes = new HashMap<>();
 
   public Airplanes() {
-    this.TXT = new FileTXT("airplaines");
-    this.TXT.removeEmptyLines();
+    super.airplaneFile = new FileTXT("airplanes");
+    super.airplaneFile.removeEmptyLines();
+    this.loadAirplanes();
   }
 
   public boolean create(String name, int seatsQuantity) {
     final String code = "A" + (this.airplanes.size() + 1); // Gerar código aleatório
-
     Airplane airplane = new Airplane(code, name, seatsQuantity);
     
-    final boolean contain = this.airplanes.contains(airplane);
-    if (contain) return false;
-
-    this.airplanes.add(airplane);
-
-    this.TXT.write(airplane.toString());
+    this.airplanes.put(code, airplane);
+    super.airplaneFile.write(airplane.toString());
 
     return true;
   }
 
-  public Airplane find(String name) {
-    for (Airplane a : this.airplanes) {
-      if (a.getName() == name) return a;
-    }
-
-    return null;
+  public Airplane find(String code) {
+    return this.airplanes.get(code);
   }
 
-  public boolean remove(String name) {
-    Airplane aux = find(name);
+  public boolean remove(String code) {
+    Airplane aux = this.airplanes.remove(code);
 
     if (aux == null) return false;
 
     this.airplanes.remove(aux);
-    this.TXT.remove(aux.toString());
+    super.airplaneFile.remove(aux.toString());
 
     return true;
   }
 
   public ArrayList<Airplane> getList() {
-    return this.airplanes;
+    return new ArrayList<>(this.airplanes.values());
+  }
+
+  private void loadAirplanes() {
+    ArrayList<String> rows = super.airplaneFile.read();
+
+    for (String clientString : rows) {
+        Airplane airplane = Airplane.fromString(clientString);
+        if (airplane != null) {
+            this.airplanes.put(airplane.getCode(), airplane);
+        }
+    }
   }
 }

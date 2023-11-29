@@ -34,4 +34,5 @@ public interface Controller<T> {
    * @return Lista de objetos
    */
   public ArrayList<T> getList();
+
 } 
