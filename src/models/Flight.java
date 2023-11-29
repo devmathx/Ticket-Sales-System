@@ -35,7 +35,7 @@ public class Flight {
   }
 
   public boolean addClient(Client client){
-    boolean clientExists = clients.stream().anyMatch(c -> client.getRg().equals(c.getRg()));
+    boolean clientExists = this.clients.stream().anyMatch(c -> client.getRg().equals(c.getRg()));
 
     if(clientExists){
       return false;
@@ -46,39 +46,37 @@ public class Flight {
   }
 
   public ArrayList<Client> getClients(){
-    return clients;
+    return this.clients;
   }
 
   public Airplane getAirplane() {
-      return airplane;
+    return this.airplane;
   }
 
   public String getDestiny() {
-      return destiny;
+    return this.destiny;
   }
 
   public String getOrigin() {
-      return origin;
+    return this.origin;
   }
 
   public String getFlightTime() {
-      return flightTime;
+    return this.flightTime;
   }
 
   public SeatClassEnum getSeatClass() {
-      return seatClass;
+    return this.seatClass;
   }
 
   public String getCode() {
-      return code;
+    return this.code;
   }
 
   public boolean removeClient(Client client){
-
-    for(int i = 0 ; i < clients.size() ; i++){
-      
-      if(clients.get(i).getRg().trim().equals(client.getRg().trim())){
-        clients.remove(i);
+    for (int i = 0 ; i < this.clients.size(); i++) {
+      if (this.clients.get(i).getRg().trim().equals(client.getRg().trim())) {
+        this.clients.remove(i);
         return true;
       }
     }
@@ -99,60 +97,56 @@ public class Flight {
     // Adiciona informações dos clientes
     text += "Clientes: ";
   
-    for (Client client : clients) {
+    for (Client client : this.clients) {
         text += client.getRg() + ", ";
     }
     text = text.replaceAll(", $", ""); // Remove a última vírgula se houver
 
     return text;
-}
+  }
   
   public static Flight fromString(String input) {
     String[] parts = input.split("\\|");
 
     if (parts.length >= 6) { // Verifica se há pelo menos 6 partes
-        String code = parts[0].trim().replace("Codigo: ", "");
-        String origin = parts[1].trim().replace("Origem: ", "");
-        String destiny = parts[2].trim().replace("Destino: ", "");
-        String flightTime = parts[3].trim().replace("Tempo de voo: ", "");
-        boolean status = Boolean.valueOf(parts[4].trim().replace("Status: ", "")).booleanValue();
-        SeatClassEnum seatClass = SeatClassEnum.valueOf(parts[5].trim().replace("Classe: ", ""));
-        String airplaneCode = parts[6].trim().replace("Codigo do aviao: ", "");
+      String code = parts[0].trim().replace("Codigo: ", "");
+      String origin = parts[1].trim().replace("Origem: ", "");
+      String destiny = parts[2].trim().replace("Destino: ", "");
+      String flightTime = parts[3].trim().replace("Tempo de voo: ", "");
+      boolean status = Boolean.valueOf(parts[4].trim().replace("Status: ", "")).booleanValue();
+      SeatClassEnum seatClass = SeatClassEnum.valueOf(parts[5].trim().replace("Classe: ", ""));
+      String airplaneCode = parts[6].trim().replace("Codigo do aviao: ", "");
 
-        // A partir daqui, você pode criar um objeto Airplane com o código
-        // e qualquer lógica adicional necessária para preencher o objeto Flight
+      // A partir daqui, você pode criar um objeto Airplane com o código
+      // e qualquer lógica adicional necessária para preencher o objeto Flight
 
-        // Exemplo:
-        Airplanes airplanes = new Airplanes();
-        Airplane airplane = airplanes.find(airplaneCode);
-        if(airplane == null){
-          return null;
+      // Exemplo:
+      Airplanes airplanes = new Airplanes();
+      Airplane airplane = airplanes.find(airplaneCode);
+      if(airplane == null){
+        return null;
+      }
+      
+      Clients clients = new Clients();
+
+      // Criar um objeto Flight
+      Flight flight = new Flight(code, origin, destiny, flightTime, seatClass, airplane);
+      flight.setStatusFly(status);
+
+      // Adicionar clientes se houver informações sobre eles
+      if (parts.length >= 8) {
+        String[] clientsInfo = parts[7].trim().replace("Clientes: ", "").split(", ");
+        for (String clientRg : clientsInfo) {
+          Client client = clients.find(clientRg);
+          if(client != null) {
+            flight.addClient(client);
+          }
         }
-        
-        Clients clients = new Clients();
+      }
 
-        // Criar um objeto Flight
-        Flight flight = new Flight(code, origin, destiny, flightTime, seatClass, airplane);
-        flight.setStatusFly(status);
-
-        // Adicionar clientes se houver informações sobre eles
-        if (parts.length >= 8) {
-            String[] clientsInfo = parts[7].trim().replace("Clientes: ", "").split(", ");
-            for (String clientRg : clientsInfo) {
-                Client client = clients.find(clientRg);
-                if(client != null) {
-                  flight.addClient(client);
-                }
-            }
-        }
-
-        return flight;
+      return flight;
     } else {
-        // Se não houver informações suficientes, você pode lançar uma exceção ou lidar de outra forma
-        throw new IllegalArgumentException("Formato de entrada inválido: " + input);
+      throw new IllegalArgumentException("Formato de entrada inválido: " + input);
     }
+  }
 }
-
-}
-
-

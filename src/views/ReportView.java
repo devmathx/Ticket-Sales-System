@@ -1,8 +1,5 @@
 package views;
 
-import java.util.ArrayList;
-
-import models.Client;
 import utils.Keyboard;
 
 public class ReportView extends View {
@@ -90,10 +87,6 @@ public class ReportView extends View {
 
         return false;
     }
-
-
-
-
 
     public boolean remove(){
        return false;

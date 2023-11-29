@@ -16,17 +16,16 @@ public class Sale {
     this.hour = hour;
   }
 
-
   public String getCode() {
-      return code;
+    return code;
   }
 
   public Client getBuyer() {
-      return buyer;
+    return buyer;
   }
 
   public Flight getFlight() {
-      return flight;
+    return flight;
   }
 
   public String toString() {
@@ -39,57 +38,54 @@ public class Sale {
   }
 
   public String getHour() {
-      return hour;
+    return hour;
   }
 
   public static Sale fromString(String input) {
     String[] parts = input.split("\\|");
 
     if (parts.length >= 4) { // Verifica se há pelo menos 4 partes
-        String code = parts[0].trim().replace("Codigo: ", "");
-        String buyerInfo = parts[1].trim().replace("Comprador: ", "");
-        String flightInfo = parts[2].trim().replace("Voo: ", "");
-        String hour = parts[3].trim().replace("Horário: ", "");
+      String code = parts[0].trim().replace("Codigo: ", "");
+      String buyerInfo = parts[1].trim().replace("Comprador: ", "");
+      String flightInfo = parts[2].trim().replace("Voo: ", "");
+      String hour = parts[3].trim().replace("Horário: ", "");
 
-        // Criar um objeto Client a partir das informações do comprador
-        String rgBuyer = buyerInfo.split(" - ")[0];
-        Clients clients = new Clients();
-        Client client = clients.find(rgBuyer);
-        if(client == null){
-          return null;
-        }
+      // Criar um objeto Client a partir das informações do comprador
+      String rgBuyer = buyerInfo.split(" - ")[0];
+      Clients clients = new Clients();
+      Client client = clients.find(rgBuyer);
+      if(client == null){
+        return null;
+      }
 
-        // Criar um objeto Flight a partir do código
-        String codeFlight = flightInfo.split(" - ")[0];
-        Flights flights =  new Flights();
-        Flight flight = flights.find(codeFlight);
-        if(flight == null){
-          return null;
-        }
+      // Criar um objeto Flight a partir do código
+      String codeFlight = flightInfo.split(" - ")[0];
+      Flights flights =  new Flights();
+      Flight flight = flights.find(codeFlight);
+      if(flight == null){
+        return null;
+      }
 
-        // Criar um objeto Sale
-        return new Sale(code, client, flight, hour);
+      // Criar um objeto Sale
+      return new Sale(code, client, flight, hour);
     } else {
-        // Se não houver informações suficientes, você pode lançar uma exceção ou lidar de outra forma
-        throw new IllegalArgumentException("Formato de entrada inválido: " + input);
+      // Se não houver informações suficientes, você pode lançar uma exceção ou lidar de outra forma
+      throw new IllegalArgumentException("Formato de entrada inválido: " + input);
     }
-}
+  }
 
-public String toCSVString() {
-  StringBuilder csvString = new StringBuilder();
+  public String toCSVString() {
+    StringBuilder csvString = new StringBuilder();
 
-  // Adicione o cabeçalho se necessário
- 
+    // Adicione os campos relevantes ao CSV
+    csvString.append(this.code).append(",");
+    csvString.append(this.buyer.getRg()).append(",");
+    csvString.append(this.buyer.getName()).append(",");
+    csvString.append(this.flight.getCode()).append(",");
+    csvString.append(this.flight.getOrigin()).append(",");
+    csvString.append(this.flight.getDestiny()).append(",");
+    csvString.append(this.hour);
 
-  // Adicione os campos relevantes ao CSV
-  csvString.append(this.code).append(",");
-  csvString.append(this.buyer.getRg()).append(",");
-  csvString.append(this.buyer.getName()).append(",");
-  csvString.append(this.flight.getCode()).append(",");
-  csvString.append(this.flight.getOrigin()).append(",");
-  csvString.append(this.flight.getDestiny()).append(",");
-  csvString.append(this.hour);
-
-  return csvString.toString();
-}
+    return csvString.toString();
+  }
 }

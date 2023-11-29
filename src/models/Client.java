@@ -1,6 +1,6 @@
 package models;
+
 public class Client {
-  
   private String rg;
   private String name;
   private String phone;
@@ -20,11 +20,11 @@ public class Client {
   }
 
   public String getRg() {
-    return rg;
+    return this.rg;
   }
 
   public String getName() {
-      return name;
+    return this.name;
   }
 
   public String toString() {
@@ -39,14 +39,13 @@ public class Client {
     String[] parts = input.split("\\|");
 
     if (parts.length >= 3) { // Verifica se há pelo menos 3 partes
-        String rg = parts[0].trim().replace("RG: ", "");
-        String nome = parts[1].trim().replace("Nome: ", "");
-        String telefone = parts[2].trim().replace("Telefone: ", "");
+      String rg = parts[0].trim().replace("RG: ", "");
+      String nome = parts[1].trim().replace("Nome: ", "");
+      String telefone = parts[2].trim().replace("Telefone: ", "");
 
-        return new Client(rg, nome, telefone);
+      return new Client(rg, nome, telefone);
     } else {
-        // Se não houver informações suficientes, você pode lançar uma exceção ou lidar de outra forma
-        throw new IllegalArgumentException("Formato de entrada inválido: " + input);
+      throw new IllegalArgumentException("Formato de entrada inválido: " + input);
     }
   }
 

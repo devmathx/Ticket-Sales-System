@@ -1,4 +1,3 @@
 package models;
-public class Report {
-  
-}
+
+public class Report {}

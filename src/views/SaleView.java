@@ -1,14 +1,13 @@
 package views;
 
 import java.util.ArrayList;
-
 import javax.swing.SwingUtilities;
-
 import app.ListSales;
 import models.Sale;
 import utils.Keyboard;
 
 public class SaleView extends View {
+
     private ListSales screen;
 
     public SaleView() {

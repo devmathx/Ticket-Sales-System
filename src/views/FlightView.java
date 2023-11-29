@@ -7,9 +7,8 @@ import models.Flight;
 import utils.Keyboard;
 
 public class FlightView extends View{
-    public FlightView(){
     
-    }
+    public FlightView(){}
 
     public boolean menu(){
         String option;

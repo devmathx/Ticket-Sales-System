@@ -1,3 +1,2 @@
 Codigo: A1 | Nome: 1 | Assentos: 137 | Ocupados: 2 | Disponivel: false
 Codigo: A2 | Nome: boing55 | Assentos: 345 | Ocupados: 3 | Disponivel: false
-

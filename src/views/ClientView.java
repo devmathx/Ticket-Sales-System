@@ -1,14 +1,12 @@
 package views;
+
 import java.util.ArrayList;
-import controllers.Clients;
 import models.Client;
 import utils.Keyboard;
 
-
 public class ClientView extends View {
-    public ClientView(){
-        
-    }
+    
+    public ClientView(){}
 
     public boolean menu(){
         String option;
@@ -23,13 +21,13 @@ public class ClientView extends View {
 
         switch (option) {
             case "1":
-                if(!this.create()) System.out.println("\t>> Erro ao cadastrar! <<\n");;
+                if(!this.create()) System.out.println("\t>> Erro ao cadastrar! <<\n");
                 break;
             case "2":
                 this.get();
                 break;
             case "3":
-                if(!this.remove()) System.out.println("\t>> Erro, Cliente não encontrado! <<\n");;
+                if(!this.remove()) System.out.println("\t>> Erro, Cliente não encontrado! <<\n");
                 break;
             case "4":
                 return true;
@@ -40,14 +38,13 @@ public class ClientView extends View {
         return true;
     }
 
-    public boolean create(){
+    public boolean create() {
         System.out.println("\n\n== CADASTRO DE CLIENTE ==\n");
         String name = Keyboard.inputString(">> Nome Completo: ");
         String phone = Keyboard.inputString(">> Número de Telefone: ");
         String rg = Keyboard.inputString(">> RG: ");
 
-
-        if(name == null || phone == null || rg == null){
+        if(name == null || phone == null || rg.length() != 9){
             return false;
         }
 
@@ -59,13 +56,11 @@ public class ClientView extends View {
         return false;
     }
 
-    public boolean remove(){
+    public boolean remove() {
         System.out.println("\n\n== REMOVER CLIENTE ==\n");
         String rg = Keyboard.inputString(">> Informe o RG que deseja remover: ");
 
-        if(rg.trim().length() != 9){
-            return false;
-        }
+        rg = rg.trim();
 
         Client client = clients.find(rg);
         if(client !=  null){
@@ -77,7 +72,7 @@ public class ClientView extends View {
         return false;
     }
 
-    public void get(){
+    public void get() {
         System.out.println("\n\n== LISTA DE CLIENTES ==\n");
 
         ArrayList<Client> clients = super.clients.getList();

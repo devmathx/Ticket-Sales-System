@@ -5,6 +5,7 @@ import views.FlightView;
 import views.ReportView;
 import views.SaleView;
 import views.View;
+import utils.Colors;
 
 public class App {
 
@@ -18,7 +19,7 @@ public class App {
     View selected;
 
     do {
-      System.out.println("\n===== VENDA DE PASSAGENS AEREAS =====\n");
+      System.out.println(Colors.CYAN + "\n===== VENDA DE PASSAGENS AÉREAS =====\n" + Colors.RESET);
       System.out.println("( 1 ) - Area Clientes");
       System.out.println("( 2 ) - Area Aviões"); 
       System.out.println("( 3 ) - Area Voos");

@@ -1,6 +1,6 @@
 package models;
+
 public class Airplane {
-  
   private String code;
   private String name;
   private int seatsQuantity;
@@ -39,32 +39,31 @@ public class Airplane {
   }
 
   public void setAvailable(boolean available) {
-      this.available = available;
+    this.available = available;
   }
 
   public String getName() {
-    return name;
+    return this.name;
   }
 
   public String getCode() {
-    return code;
+    return this.code;
   }
 
-
   public int getBusy() {
-      return busy;
+    return this.busy;
   }
 
   public int getSeatsQuantity() {
-      return seatsQuantity;
+    return this.seatsQuantity;
   }
 
   public void setSeatsQuantity(int seatsQuantity) {
-      this.seatsQuantity = seatsQuantity;
+    this.seatsQuantity = seatsQuantity;
   }
 
   public void setBusy(int busy) {
-      this.busy = busy;
+    this.busy = busy;
   }
 
   public String toString() {
@@ -77,21 +76,19 @@ public class Airplane {
     return text;
   }
 
-
   public static Airplane fromString(String input) {
     String[] parts = input.split("\\|");
 
     if (parts.length >= 3) { // Verifica se há pelo menos 3 partes
-        String codigo = parts[0].trim().replace("Codigo: ", "");
-        String nome = parts[1].trim().replace("Nome: ", "");
-        int assentos = Integer.parseInt(parts[2].trim().replace("Assentos: ", ""));
-        int ocupados = Integer.parseInt(parts[3].trim().replace("Ocupados: ", ""));
-        boolean available = Boolean.valueOf(parts[4].trim().replace("Disponivel: ", "")).booleanValue();
+      String codigo = parts[0].trim().replace("Codigo: ", "");
+      String nome = parts[1].trim().replace("Nome: ", "");
+      int assentos = Integer.parseInt(parts[2].trim().replace("Assentos: ", ""));
+      int ocupados = Integer.parseInt(parts[3].trim().replace("Ocupados: ", ""));
+      boolean available = Boolean.valueOf(parts[4].trim().replace("Disponivel: ", "")).booleanValue();
 
-        return new Airplane(codigo, nome, assentos, ocupados, available);
+      return new Airplane(codigo, nome, assentos, ocupados, available);
     } else {
-        // Se não houver informações suficientes, você pode lançar uma exceção ou lidar de outra forma
-        throw new IllegalArgumentException("Formato de entrada inválido: " + input);
+      throw new IllegalArgumentException("Formato de entrada inválido: " + input);
     }
   }
 }
