@@ -9,17 +9,30 @@ import models.Report;
 import models.Sale;
 import services.FileCSV;
 
+/**
+ * Controle de Relatórios
+ */
 public class Reports extends ControllerFields implements Controller<Report> {
-
+   /**
+  * Armazenamento de relatórios
+  */
   private ArrayList<Report> reports = new ArrayList<>();
   private FileCSV CSV;
   private Sales sales = new Sales();
   private ArrayList<Sale> fullSales;
 
+  /**
+  * Construtior, coleta todas as vendas de sales
+  */
   public Reports() {
     fullSales = sales.getList();
   }
 
+  /**
+  * Cria relatório com base no rg do cliente
+  * @RG string rg do usuário
+  * @return bolleando indicando se o documento foi criado com sucesso
+  */
   public boolean createReportClient(String RG) {
     Clients clients  = new Clients();
     Client client = clients.find(RG);
@@ -53,7 +66,11 @@ public class Reports extends ControllerFields implements Controller<Report> {
     return true;
   }
     
-
+  /**
+  * Cria relatório com base no codigo do avião
+  * @code código do avião a ser gerado o relatório
+  * @return bolleando indicando se o documento foi criado com sucesso
+  */
   public boolean createReportAirplane(String code){
     Airplanes airplanes = new Airplanes();
     Airplane airplane = airplanes.find(code);
@@ -87,6 +104,11 @@ public class Reports extends ControllerFields implements Controller<Report> {
     return true;
   }
 
+  /**
+  * Cria relatório com base na origem
+  * @origin string de origem do voo
+  * @return bolleando indicando se o documento foi criado com sucesso
+  */
   public boolean createReportOrigin(String origin){
     ArrayList<Sale> salesOrigin = new ArrayList<>();
 
@@ -113,7 +135,11 @@ public class Reports extends ControllerFields implements Controller<Report> {
     return true;
   }
 
-
+  /**
+  * Cria relatório com base no destino
+  * @destiny string de origem do voo
+  * @return bolleano indicando se o documento foi criado com sucesso
+  */
   public boolean createReportDestiny(String destiny){
     ArrayList<Sale> salesDestiny = new ArrayList<>();
 
@@ -148,6 +174,9 @@ public class Reports extends ControllerFields implements Controller<Report> {
     throw new UnsupportedOperationException("Unimplemented method 'remove'");
   }
 
+  /**
+  * Devolve arrayList com os objetos
+  */
   public ArrayList<Report> getList() {
     return this.reports;
   }
