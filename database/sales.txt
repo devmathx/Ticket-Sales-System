@@ -2,3 +2,4 @@ Codigo: S1 | Comprador: 987654321 - jorge | Voo: F1 - POA -> BH | Horario: 29/11
 Codigo: S2 | Comprador: 987654321 - jorge | Voo: F2 - SP -> RJ | Horario: 29/11/2023
 Codigo: S3 | Comprador: 123245698 - pedr3o | Voo: F2 - SP -> RJ | Horario: 29/11/2023
 Codigo: S4 | Comprador: 987654321 - jorge | Voo: F2 - SP -> RJ | Horario: 29/11/2023
+Codigo: S5 | Comprador: 123245698 - pedr3o | Voo: F1 - POA -> BH | Horario: 29/11/2023

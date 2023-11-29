@@ -54,12 +54,9 @@ public class Sales extends ControllerFields implements Controller<Sale> {
   
 
     flights.find(codeFlight).addClient(buyer); 
-    System.out.println(flights.find(codeFlight).getAirplane());
     flights.find(codeFlight).getAirplane().setBusy(flights.find(codeFlight).getAirplane().getBusy() + 1);
     flight = flights.find(codeFlight);
 
-    System.out.println(flights.find(codeFlight).getAirplane());
-   
     String newFlight = flight.toString();
     String newAirplane = flight.getAirplane().toString();
     

@@ -7,8 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import models.Client;
-
 public class FileTXT {
     /**
      * Diretório do arquivo
@@ -116,7 +114,6 @@ public class FileTXT {
      */
     public void remove(String rowToRemove) {
         ArrayList<String> data = read();
-        System.out.println(rowToRemove);
             
         StringBuilder content = new StringBuilder();
 
@@ -124,8 +121,6 @@ public class FileTXT {
             if (row != null) {
                 if (!row.equals(rowToRemove)) {
                     content.append(row).append("\n");
-                }else{
-                    System.out.println("igual");
                 }
             }   
         }

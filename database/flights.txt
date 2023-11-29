@@ -1,2 +1,3 @@
-Codigo: F1 | Origem: POA | Destino: BH | Tempo de voo: 15:00 | Status: false | Classe: FIRST_CLASS | Codigo do aviao: A1 | Clientes: 987654321
+Codigo: F1 | Origem: POA | Destino: BH | Tempo de voo: 15:00 | Status: false | Classe: FIRST_CLASS | Codigo do aviao: A1 | Clientes: 987654321, 123245698
 Codigo: F2 | Origem: SP | Destino: RJ | Tempo de voo: 22:00 | Status: false | Classe: EXECUTIVE | Codigo do aviao: A2 | Clientes: 987654321, 123245698
+

@@ -1,6 +1,6 @@
 package utils;
-import java.util.Scanner;
 
+import java.util.Scanner;
 
 public class Keyboard {
     private static Scanner kb = new Scanner(System.in);
@@ -12,10 +12,10 @@ public class Keyboard {
 
 
     public static Integer inputInt(String args){
-          System.out.print(args);
-          int res = kb.nextInt();
-          kb.nextLine(); 
-          return res;
+        System.out.print(args);
+        int res = kb.nextInt();
+        kb.nextLine(); 
+        return res;
     }
 }
 
